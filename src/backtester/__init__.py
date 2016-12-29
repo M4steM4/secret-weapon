@@ -6,7 +6,9 @@ from htmlmin.main import minify
 
 from backtester.data.models import db
 from backtester.config import configure_app
+
 from backtester.dashboard.controllers import dashboard
+from backtester.setting.controllers import setting
 
 
 app = Flask(__name__,
@@ -56,3 +58,4 @@ def index(lang_code=None):
 
 
 app.register_blueprint(dashboard, url_prefix='/dashboard')
+app.register_blueprint(setting, url_prefix='/setting')
