@@ -1,3 +1,6 @@
+from flask_security import Security, SQLAlchemyUserDatastore
+from flask_login import LoginManager
+from backtester.data.models import db, Role, User
 
 class BaseConfig(object):
     DEBUG = False
@@ -22,3 +25,7 @@ config = {
 
 def configure_app(app):
     app.config.from_object(config['default'])
+
+    # Configure Security
+    user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+    app.security = Security(app, user_datastore)
