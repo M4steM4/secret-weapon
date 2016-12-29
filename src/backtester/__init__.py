@@ -2,9 +2,11 @@ from flask import abort, Flask, g, render_template, request
 from flask_security import current_user
 from flask_babel import Babel
 
+from htmlmin.main import minify
+
 from backtester.data.models import db
 from backtester.config import configure_app
-from backtester.main.controllers import main
+from backtester.dashboard.controllers import dashboard
 
 
 app = Flask(__name__,
@@ -26,6 +28,19 @@ def get_timezone():
     if user is not None:
         return user.timezone
 
+@app.after_request
+def response_minify(response):
+    """
+    minify html response to decrease site traffic
+    """
+    if response.content_type == u'text/html; charset=utf-8':
+        response.set_data(
+            minify(response.get_data(as_text=True))
+        )
+
+        return response
+    return response
+
 @app.errorhandler(404)
 def page_not_found(error):
     app.logger.error('Page not found: %s', (request.path, error))
@@ -33,7 +48,6 @@ def page_not_found(error):
 
 @app.context_processor
 def inject_data():
-    print(dir(current_user))
     return dict(user=current_user,ang=1)
 
 @app.route('/')
@@ -41,4 +55,4 @@ def index(lang_code=None):
     return render_template('index.html')
 
 
-app.register_blueprint(main, url_prefix='/main')
+app.register_blueprint(dashboard, url_prefix='/dashboard')
