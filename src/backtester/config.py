@@ -5,6 +5,11 @@ from backtester.data.models import db, Role, User
 class BaseConfig(object):
     DEBUG = False
     TESTING = False
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite3'
+    SECURITY_REGISTERABLE = True
+    SECURITY_REGISTER_URL = '/register'
+    SECURITY_SEND_REGISTER_EMAIL = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
 class DevelopmentConfig(BaseConfig):

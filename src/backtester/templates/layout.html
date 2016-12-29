@@ -15,13 +15,9 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="{{ url_for('index') }}">{{ _('Flask Main') }}</a>
+          <a class="navbar-brand" href="{{ url_for('index') }}">{{ _('Go Index') }}</a>
         </div>
         <div>
-          <ul class="nav navbar-nav">
-            <li><a class="navbar-brand" href="{{ url_for('main.display_index') }}">{{ _('Authors') }}</a></li>
-            <li><a class="navbar-brand" href="{{ url_for('main.display_index') }}">{{ _('Books') }}</a></li>
-          </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if user.has_role('admin') %}
               <li><a class="navbar-brand" href="{{ url_for('main.display_index') }}">{{ _('Admin') }}</a></li>
@@ -29,7 +25,9 @@
 
             {% if not user.is_authenticated %}
               <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> {{ _('Log In') }}</a></li>
+              <li><a href="/register"><span class="glyphicon glyphicon-log-in"></span> {{ _('Register') }}</a></li>
             {% else %}
+              <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>hello. {{ user.email }}</a></li>
               <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> {{ _('Log Out') }}</a></li>
             {% endif %}
 

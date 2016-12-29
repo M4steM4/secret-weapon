@@ -10,8 +10,6 @@ from backtester.main.controllers import main
 app = Flask(__name__,
             template_folder='templates')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-
 babel = Babel(app)
 configure_app(app)
 db.init_app(app)
@@ -42,14 +40,5 @@ def inject_data():
 def index(lang_code=None):
     return render_template('index.html')
 
-@app.route('/register' , methods=['GET','POST'])
-def register():
-    if request.method == 'GET':
-        return render_template('register.html')
-    user = User(request.form['username'] , request.form['password'],request.form['email'])
-    db.session.add(user)
-    db.session.commit()
-    flash('User successfully registered')
-    return redirect(url_for('login'))
 
 app.register_blueprint(main, url_prefix='/main')
