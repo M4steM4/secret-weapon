@@ -7,21 +7,14 @@
     <meta name="author" content="Fabian Jakobs">
     <!--
     Ace
-      version %version%
-      commit  %commit%
+      version 1.2.6
+      commit  
     -->
 
     <link rel="stylesheet" href="demo/kitchen-sink/styles.css" type="text/css" media="screen" charset="utf-8">
     <script async="true" src="https://use.edgefonts.net/source-code-pro.js"></script>
 
     <link href="./doc/site/images/favicon.ico" rel="icon" type="image/x-icon">
-    <style>
-      #editor {
-        position: relative;
-        width: 100%;
-        height: 100%;
-    }
-    </style>
 </head>
 <body>
 <div id="optionsPanel" style="position:absolute;height:100%;width:260px">
@@ -120,22 +113,6 @@
         </select>
       </td>
     </tr>
-    
-<tr>
-      <td >
-        <label for="test_wrap">test</label>
-      </td><td>
-        <select id="test_wrap" size="1">
-          <option value="test-click">test</option>
-          <option value="40">40 Chars</option>
-          <option value="80">80 Chars</option>
-          <option value="free">Free</option>
-        </select>
-      </td>
-    </tr>
-
-
-
 
     <tr><td colspan="2">
     <table id="more-controls">
@@ -278,7 +255,7 @@
   </table>
   
   <a href="http://ace.c9.io">
-    <img id="ace-logo" src="doc/site/images/ace-logo.png" style="width: 134px;margin: 46px 0px 4px 66px;">
+    <img id="ace-logo" src="demo/kitchen-sink/ace-logo.png" style="width: 134px;margin: 46px 0px 4px 66px;">
   </a>
   <div><a target="_test" href="./lib/ace/test/tests.html"
     style="color: whitesmoke; text-align: left; padding: 1em;">tests</a>
@@ -287,52 +264,30 @@
   </div>
 </div>
   <div id="editor-container">
-    <div id="editor">some text</div>
-    <script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+    
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-python.js"></script>
+      <div id="editor">some text</div>
+
     <script>
         var editor = ace.edit("editor");
-        editor.setTheme("ace/theme/test");
+        editor.setTheme("ace/theme/twilight");
+        var PythonMode = ace.require("ace/mode/python").Mode;
+    editor.session.setMode(new PythonMode());
     </script>
-  </div>
-
-<!--DEVEL-->
-  <script type="text/javascript">
-      var require = {
-          baseUrl: window.location.protocol + "//" + window.location.host + window.location.pathname.split("/").slice(0, -1).join("/"),
-          paths: {
-              ace: "lib/ace"
-          },
-          waitSeconds: 30
-      };
-      require.config({paths: {ace: "../build/src"}})
-    define('testace', ['ace/ace'],
-        function(ace, langtools) {
-            console.log("This is the testace module");
-            var editor = ace.edit("editor");
-            editor.setTheme("ace/theme/twilight");
-            editor.session.setMode("ace/mode/javascript");
-            require(["ace/requirejs/text!src/ace"], function(e){
-                editor.setValue(e);
-            })
-        }
-    );
-    require(['testace'])
-  </script>
-  <script src="demo/kitchen-sink/require.js" data-main="demo/kitchen-sink/demo" type="text/javascript"></script>
-      <script src="test.js" type="text/javascript" charset="utf-8"></script>
 
 
-<!--DEVEL-->
+<script src="http://cdn.extendjs.org/0.2.3/extend.min.js"></script>
 
-<!--PACKAGE
-  <script src="src/ace.js" data-ace-base="src" type="text/javascript" charset="utf-8"></script>
   <script src="src/keybinding-vim.js"></script>
   <script src="src/keybinding-emacs.js"></script>
+  <script src="src/theme-twilight.js" type="text/javascript" charset="utf-8"></script>
   <script src="demo/kitchen-sink/demo.js"></script>
   <script type="text/javascript" charset="utf-8">
     require("kitchen-sink/demo");
   </script>
-    PACKAGE-->
+    
 
 </body>
 </html>
